@@ -7,8 +7,13 @@ tokens = (
     'VARINT',
     'MULT',
     'DIV',
-    'ADD',
-    'SUB',
+    'ADDA',
+    'ADDB',
+    'ADDC',
+    'ADDD',
+    'SUBA',
+    'SUBB',
+    'SUBC',
     'INCREMENT',
     'TRUE',
     'FALSE',
@@ -21,8 +26,13 @@ tokens = (
     )
 
 # regular expressions basic definitions
-t_ADD    = r'number to go'
-t_SUB   = r'completed out of'
+def t_ADDA(t): r'laps'; return t
+def t_ADDB(t): r'have'; return t
+def t_ADDC(t): r'increased'; return t
+def t_ADDD(t): r'by:'; return t
+def t_SUBA(t): r'completed'; return t
+def t_SUBB(t): r'out'; return t
+def t_SUBC(t): r'of'; return t
 def t_DIV(t): r'split'; return t
 def t_MULT(t): r'by'; return t
 def t_INCREMENT(t): r'Jaccoby'; return t
@@ -30,12 +40,12 @@ def t_VARINT(t): r'laps'; return t
 t_VAR = r'[a-zA-Z_][a-zA-Z0-9_]*'
 t_TRUE = r'TRUE'
 t_FALSE = r'FALSE'
-t_OUTPUT = r'Coach;'
+def t_OUTPUT(t): r'Coach;'; return t
 t_LESSTHAN = r'<'
 t_GREATERTHAN = r'>'
-t_IF = r'if'
-t_WHILE = r'while'
-t_FUNC = r'func'
+def t_IF(t): r'if'; return t
+def t_WHILE(t): r'while'; return t
+def t_FUNC(t): r'workout'; return t
 
 
 

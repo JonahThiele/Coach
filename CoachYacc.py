@@ -17,12 +17,12 @@ def p_statement_output(p):
     print("Coach says" + str(p[2]) + "!")    
     
 def p_expression_basicop(p):
-    '''expression : expression ADD expression
-                  | expression SUB expression
+    '''expression : expression ADDA ADDB ADDC ADDD expression
+                  | expression SUBA SUBB SUBC expression
                   | expression MULT expression
                   | expression DIV expression'''
-    if p[2] == 'number to go'  : p[0] = p[1] + p[3]
-    elif p[2] == 'completed out of': p[0] = p[3] - p[1]
+    if p[2] == 'laps' and p[3] == 'have' and p[4] == 'increased' and p[5] == 'by:': p[0] = p[1] + p[6]
+    elif p[2] == 'completed' and p[3] == 'out' and p[4] == 'of': p[0] = p[5] - p[1]
     elif p[2] == 'by': p[0] = p[1] * p[3]
     elif p[2] == 'split': p[0] = p[1] / p[3]
 
