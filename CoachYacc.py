@@ -1,15 +1,16 @@
-import yacc 
-import CoachLex as clex
-from CoachLex import lex
-
-lexer.lex()
+import ply.yacc 
+from CoachLex import tokens
 
 #enviromental variables
 enviro_vars = {}
 
 def p_statement_assign(p):
-    'statement : VAR expresssion'
+    'statement : VAR expression'
     enviro_vars[p[1]] = p[2]
+
+def p_statement_expr(p):
+    'statement : expression'
+    print(p[1])
 
 def p_statement_output(p):
     'statement : OUTPUT expression'
@@ -30,7 +31,7 @@ def p_expression_number(p):
     p[0] = p[1]
 
 def p_expression_var(p):
-    'expression = VAR'
+    'expression : VAR'
     try:
         p[0] = enviro_vars[p[1]]
     except LookupError:
@@ -41,4 +42,11 @@ def p_error(p):
     prt(f"Synax error  at {p.value!r}")
         
 #set up yacc
-yacc.yacc()
+yaccer = ply.yacc.yacc()
+
+while True:
+    try:
+        s = input('> ')
+    except EOFError:
+        break
+    yaccer.parse(s)

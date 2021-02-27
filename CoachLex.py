@@ -1,4 +1,4 @@
-import lex 
+import ply.lex 
 
 # all of our tokens
 tokens = (
@@ -30,6 +30,9 @@ t_FALSE = r'FALSE'
 t_OUTPUT = r'Coach;'
 t_LESSTHAN = r'<'
 t_GREATERTHAN = r'>'
+t_IF = r'if'
+t_WHILE = r'while'
+t_FUNC = r'func'
 
 
 
@@ -57,5 +60,5 @@ precedence = (
     
 
 # Build the lexer
-lexer = lex.lex()
+clexer = ply.lex.lex()
     
