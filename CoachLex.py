@@ -1,38 +1,54 @@
-import ply.lex 
+import ply.lex as lex
 
 # all of our tokens
 tokens = (
+    'FILEIN',
+    'NAME',
     'NUMBER',
     'VAR',
+    'VARINT',
     'MULT',
     'DIV',
-    'ADD',
-    'SUB',
+    'ADDA',
+    'ADDB',
+    'ADDC',
+    'ADDD',
+    'SUBA',
+    'SUBB',
+    'SUBC',
     'INCREMENT',
     'TRUE',
     'FALSE',
-    'WHILE',
+    'WHILEA',
+    'WHILEB',
     'IF',
     'OUTPUT',
-    'LESSTHAN',
-    'GREATERTHAN',
+    'COMPARISON',
     'FUNC'
     )
 
 # regular expressions basic definitions
-t_ADD    = r'number to go'
-t_SUB   = r'completed'
-t_DIV  = r'splits'
-t_INCREMENT = r'Jaccoby'
+def t_ADDA(t): r'laps'; return t
+def t_ADDB(t): r'have'; return t
+def t_ADDC(t): r'increased'; return t
+def t_ADDD(t): r'by:'; return t
+def t_SUBA(t): r'completed'; return t
+def t_SUBB(t): r'out'; return t
+def t_SUBC(t): r'of'; return t
+def t_DIV(t): r'split'; return t
+def t_MULT(t): r'by'; return t
+def t_INCREMENT(t): r'Jaccoby'; return t
+def t_VARINT(t): r'lap'; return t
+#t_NAME = r'[a-zA-Z0-9_][a-zA-Z0-9_ ]*'
 t_VAR = r'[a-zA-Z_][a-zA-Z0-9_]*'
-t_TRUE = r'TRUE'
-t_FALSE = r'FALSE'
-t_OUTPUT = r'Coach;'
-t_LESSTHAN = r'<'
-t_GREATERTHAN = r'>'
-t_IF = r'if'
-t_WHILE = r'while'
-t_FUNC = r'func'
+def t_FILEIN(t): r'workout'; return t
+def t_TRUE(t): r'TRUE'; return t
+def t_FALSE(t): r'FALSE'; return t
+def t_OUTPUT(t): r'coach:'; return t
+def t_IF(t): r'if'; return t
+def t_WHILEA(t): r'mile'; return t
+def t_WHILEB(t): r'repeats'; return t
+def t_FUNC(t): r'func'; return t
 
 
 
@@ -54,11 +70,12 @@ def t_error(t):
 
 
 precedence = (
+    ('left', 'VARINT'),
+    ('left', 'VAR'),
     ('left', 'ADD', 'SUB'),
     ('left', 'TIMES', 'DIVIDE')
     )
     
 
 # Build the lexer
-clexer = ply.lex.lex()
-    
+clexer = lex.lex()
