@@ -10,17 +10,26 @@ def p_statement_assign(p):
 
 def p_statement_expr(p):
     'statement : expression'
-    print(p[1])
 
-#def p_statement_output(p):
-   # 'statement : OUTPUT NAME'
-   # print("Coach says " + str(p[2]) + "!")
+def p_statement_output(p):
+    'statement : OUTPUT expression'
+    print("Coach says " + str(p[2]) + "!")
 
-#def p_statement_if(p):
- #   '''statement : IF expression GREATERTHAN expression
-  #                 IF expression LESSTHAN expression
-  #                 IF expression EQUALTO expression'''
-  #  if p[3] == '>': 
+def p_statement_if(p):
+    '''statement : IFA IFB IFC comparison THEN statement'''
+    if p[4]: p[6]
+
+def p_statement_file_in(p):
+    'statement : FILEIN VAR'
+    file_str = ""
+    f = open(p[2] + "." + 'osxc', "r")
+    for line in f:
+        file_str += line
+    yaccer.parse(file_str)
+
+#def p_statement_increment(p):
+   # 'statement : INCREMENT expression'
+    #enviro_vars[p[2]] = p[2] + 1
     
 def p_expression_basicop(p):
     '''expression : expression ADDA ADDB ADDC ADDD expression
@@ -43,6 +52,14 @@ def p_expression_var(p):
     except LookupError:
         print("undefined var, resorting to 0")
         p[0] = 0
+
+def p_comparison_binop(p):
+    '''comparison : expression GREATLESSTHANA EQUALTOA EQUALTOB expression
+                  | expression GREATLESSTHANA GREATERTHAN GREATLESSTHANB expression
+                  | expression GREATLESSTHANA LESSTHAN GREATLESSTHANB expression'''
+    if p[4] == 'same': p[0] = p[1] == p[6]
+    elif p[3] == 'faster': p[0] = p[1] > p[5]
+    elif p[3] == 'slower': p[0] = p[1] < p[5]
         
 def p_error(p):
     print(f"Synax error  at {p.value!r}")

@@ -2,6 +2,7 @@ import ply.lex as lex
 
 # all of our tokens
 tokens = (
+    'FILEIN',
     'NUMBER',
     'VAR',
     'VARINT',
@@ -18,13 +19,18 @@ tokens = (
     'TRUE',
     'FALSE',
     'WHILE',
-    'IF',
+    'IFA',
+    'IFB',
+    'IFC',
     'OUTPUT',
     'LESSTHAN',
     'GREATERTHAN',
-    'FUNC',
-    #'NAME',
-    'EQUALTO'
+    'GREATLESSTHANA',
+    'GREATLESSTHANB',
+    'EQUALTOA',
+    'EQUALTOB',
+    'THEN',
+    'ELSE'
     )
 
 # regular expressions basic definitions
@@ -44,12 +50,19 @@ t_VAR = r'[a-zA-Z_][a-zA-Z0-9_]*'
 t_TRUE = r'TRUE'
 t_FALSE = r'FALSE'
 def t_OUTPUT(t): r'Coach:'; return t
-t_LESSTHAN = r'<'
-t_GREATERTHAN = r'>'
-t_EQUALTO = r'='
-def t_IF(t): r'if'; return t
+def t_LESSTHAN(t): r'slower';return t
+def t_GREATLESSTHANA(t): r'was'; return t
+def t_GREATERTHAN(t): r'faster'; return t
+def t_GREATLESSTHANB(t): r'than'; return t
+def t_EQUALTOA(t): r'similar'; return t
+def t_EQUALTOB(t): r'to'; return t
+def t_IFA(t): r'If'; return t
+def t_IFB(t): r'your'; return t
+def t_IFC(t): r'time,'; return t
 def t_WHILE(t): r'while'; return t
-def t_FUNC(t): r'workout'; return t
+def t_THEN(t): r'then'; return t
+def t_ELSE(t): r'elses'; return t
+def t_FILEIN(t): r'workout'; return t
 
 
 
@@ -63,7 +76,7 @@ def t_NUMBER(t):
 
 def t_newline(t):
     r'\n+'
-    t.lexer.lineo += t.value.count("\n")
+    t.lexer.lineno += t.value.count("\n")
 
 def t_error(t):
     print(f"Illegal character {t.value[0]!r}")
@@ -71,6 +84,8 @@ def t_error(t):
 
 
 precedence = (
+    ('left', 'IF'),
+    ('left', 'ELSE'),
     ('left', 'VARINT'),
     ('left', 'VAR'),
     ('left', 'ADD', 'SUB'),
