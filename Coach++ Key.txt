@@ -1,0 +1,13 @@
+Key:
+by == multiply
+splits == divide
+completed out of ==  subtraction(what you are subtracting goes first, what you are subtracting from goes second)
+laps increased by: == addition
+lap == variable declaration
+If your time, == if statement
+was slower than == less than
+was faster than == greater than
+was similar to == equal to
+
+The favorite that didn't make it:
+Jaccoby == Increment to a variable by one
