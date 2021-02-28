@@ -24,13 +24,15 @@ def p_statement_file_in(p):
     file_str = ""
     f = open(p[2] + "." + 'osxc', "r")
     for line in f:
-        file_str += line
-    yaccer.parse(file_str)
+        file_str = '' 
+        file_str += line.rstrip('\n')
+        yaccer.parse(file_str)
 
 #def p_statement_increment(p):
    # 'statement : INCREMENT expression'
     #enviro_vars[p[2]] = p[2] + 1
-    
+
+#Basic Math
 def p_expression_basicop(p):
     '''expression : expression ADDA ADDB ADDC ADDD expression
                   | expression SUBA SUBB SUBC expression
